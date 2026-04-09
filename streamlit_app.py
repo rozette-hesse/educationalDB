@@ -6,14 +6,13 @@ st.set_page_config(page_title="InBalance Explore", layout="centered")
 # -----------------------------
 # Theme
 # -----------------------------
-
-BG = "#f3dddd"        # soft blush background
-CARD = "#2a1f24"      # deep muted plum-brown cards
-BORDER = "#4a3940"    # softer border
-TEXT = "#fff7f8"      # soft off-white text
-MUTED = "#cbb7bd"     # muted pink-grey
-ACCENT = "#b88aa0"    # dusty mauve
-ACCENT_2 = "#97b29f"  # soft sage
+BG = "#f3dddd"        # page background
+CARD = "#2a1f24"      # main cards
+BORDER = "#4a3940"    # borders
+TEXT = "#fff7f8"      # main text
+MUTED = "#cbb7bd"     # muted text
+ACCENT = "#b88aa0"    # active tab
+ACCENT_2 = "#97b29f"  # optional sage accent
 
 PHASE_STYLES = {
     "menstrual": {"bg": "#b86f87", "text": "#fff6f8"},
@@ -22,6 +21,7 @@ PHASE_STYLES = {
     "luteal": {"bg": "#9a88bb", "text": "#fcfaff"},
     "neutral": {"bg": "#dbc8cf", "text": "#5a4650"},
 }
+
 # -----------------------------
 # Data
 # -----------------------------
@@ -76,13 +76,13 @@ def phase_dots(text):
     for p in phases[:3]:
         c = phase_class(p)
         if c == "menstrual":
-            colors.append("#df6f93")
+            colors.append("#d97d98")
         elif c == "follicular":
-            colors.append("#76bc8e")
+            colors.append("#93b8a1")
         elif c == "ovulatory":
-            colors.append("#e094c6")
+            colors.append("#d3a0bf")
         elif c == "luteal":
-            colors.append("#9f84ea")
+            colors.append("#ab97cb")
     return colors
 
 def render_phase_tag(label):
@@ -129,24 +129,35 @@ h1, h2, h3, h4, h5, p, div, span, label {{
 }}
 
 div[data-testid="stTextInputRootElement"] input {{
-    background: {CARD} !important;
-    color: {TEXT} !important;
-    border: 1px solid {BORDER} !important;
+    background: #f8eef1 !important;
+    color: #533f48 !important;
+    border: 1px solid #d8c2ca !important;
     border-radius: 18px !important;
 }}
 
 div[data-testid="stTextInputRootElement"] input::placeholder {{
-    color: {MUTED} !important;
+    color: #9e8790 !important;
 }}
 
 div[data-testid="stButton"] > button {{
     border-radius: 16px;
+    background: #e6d6db !important;
+    color: #4d3942 !important;
+    border: 1px solid #d4bec6 !important;
+    box-shadow: none !important;
+}}
+
+div[data-testid="stButton"] > button:hover {{
+    background: #dcc8cf !important;
+    color: #4d3942 !important;
+    border: 1px solid #cdb1bb !important;
 }}
 
 .explore-title {{
     font-size: 2.3rem;
     font-weight: 600;
     margin-bottom: 1rem;
+    color: #4d3942;
 }}
 
 .segment-wrap {{
@@ -157,8 +168,8 @@ div[data-testid="stButton"] > button {{
 }}
 
 .segment-on {{
-    background: {ACCENT};
-    color: #1d1117;
+    background: #c39ab0;
+    color: #2f2027;
     border-radius: 18px;
     padding: 14px 16px;
     text-align: center;
@@ -167,8 +178,8 @@ div[data-testid="stButton"] > button {{
 }}
 
 .segment-off {{
-    background: {CARD};
-    color: {MUTED};
+    background: #3a2b31;
+    color: #d8c7ce;
     border-radius: 18px;
     padding: 14px 16px;
     text-align: center;
@@ -213,8 +224,8 @@ div[data-testid="stButton"] > button {{
 
 .tag {{
     display: inline-block;
-    background: #221b1f;
-    color: {TEXT};
+    background: #e6d4db;
+    color: #523f48;
     padding: 7px 13px;
     border-radius: 999px;
     margin: 0 8px 8px 0;
@@ -228,7 +239,7 @@ div[data-testid="stButton"] > button {{
 # -----------------------------
 st.markdown('<div class="explore-title">← Explore</div>', unsafe_allow_html=True)
 
-st.markdown(f"""
+st.markdown("""
 <div class="segment-wrap">
     <div class="segment-on">Food</div>
     <div class="segment-off">Workouts</div>
@@ -312,7 +323,7 @@ else:
 
     st.markdown('<div class="label">Benefits</div>', unsafe_allow_html=True)
     st.markdown(
-        f"<div style='color:#d8cad0;line-height:1.75;font-size:1.03rem'>{selected.get('description','')}</div>",
+        f"<div style='color:#f0e4e8;line-height:1.75;font-size:1.03rem'>{selected.get('description','')}</div>",
         unsafe_allow_html=True
     )
 
