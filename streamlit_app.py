@@ -7,13 +7,12 @@ st.set_page_config(page_title="InBalance Explore", layout="centered")
 # Theme
 # -----------------------------
 
-BG = "#181215"
-CARD = "#22191e"
-BORDER = "#3b2d35"
+BG = "#151015"
+CARD = "#1d161c"
+BORDER = "#342733"
 TEXT = "#f5ecef"
 MUTED = "#a8959d"
-ACCENT = "#b884a1"   # mauve-pink
-ACCENT_2 = "#7aa38b" # soft sage
+ACCENT = "#b884a1"
 
 PHASE_STYLES = {
     "menstrual": {"bg": "#35151f", "text": "#f2bfd1"},
