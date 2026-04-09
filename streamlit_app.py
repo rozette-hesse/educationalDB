@@ -7,22 +7,21 @@ st.set_page_config(page_title="InBalance Explore", layout="centered")
 # Theme
 # -----------------------------
 
-BG = "#F4C2C2"
-CARD = "#241d20"
-BORDER = "#3b3136"
-TEXT = "#000080"
-MUTED = "#aa98a0"
-ACCENT = "#b989a4"
-ACCENT_2 = "#7da28c"
+BG = "#f3dddd"        # soft blush background
+CARD = "#2a1f24"      # deep muted plum-brown cards
+BORDER = "#4a3940"    # softer border
+TEXT = "#fff7f8"      # soft off-white text
+MUTED = "#cbb7bd"     # muted pink-grey
+ACCENT = "#b88aa0"    # dusty mauve
+ACCENT_2 = "#97b29f"  # soft sage
 
 PHASE_STYLES = {
-    "menstrual": {"bg": "#40202a", "text": "#f0c3d2"},
-    "follicular": {"bg": "#1d2d23", "text": "#c4e3ce"},
-    "ovulatory": {"bg": "#442637", "text": "#efc6dc"},
-    "luteal": {"bg": "#2f2442", "text": "#d8c8fb"},
-    "neutral": {"bg": "#2a2326", "text": "#eadde2"},
+    "menstrual": {"bg": "#b86f87", "text": "#fff6f8"},
+    "follicular": {"bg": "#8daa96", "text": "#fbfffc"},
+    "ovulatory": {"bg": "#c792b3", "text": "#fff8fc"},
+    "luteal": {"bg": "#9a88bb", "text": "#fcfaff"},
+    "neutral": {"bg": "#dbc8cf", "text": "#5a4650"},
 }
-
 # -----------------------------
 # Data
 # -----------------------------
