@@ -7,9 +7,9 @@ st.set_page_config(page_title="InBalance Explore", layout="centered")
 # Theme
 # -----------------------------
 
-BG = "#151015"
-CARD = "#1d161c"
-BORDER = "#342733"
+BG = "#1e1918"
+CARD = "#27201f"
+BORDER = "#3f3431"
 TEXT = "#f5ecef"
 MUTED = "#a8959d"
 ACCENT = "#b884a1"
