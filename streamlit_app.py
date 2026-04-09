@@ -3,29 +3,28 @@ import pandas as pd
 
 st.set_page_config(page_title="InBalance Explore", layout="centered")
 
-# =============================
-# COLOR SETTINGS — change these
-# =============================
-BG = "#070505"
-CARD = "#120d0c"
-CARD_BORDER = "#3a2824"
-TEXT = "#f4ebe2"
-MUTED = "#a39289"
-ACCENT = "#c77f4f"
-TAB_OFF = "#211918"
-SEARCH_BG = "#1a1413"
+# -----------------------------
+# Theme
+# -----------------------------
+BG = "#0b090b"
+CARD = "#151113"
+BORDER = "#2a2226"
+TEXT = "#f5ecef"
+MUTED = "#a8959d"
+ACCENT = "#b884a1"   # mauve-pink
+ACCENT_2 = "#7aa38b" # soft sage
 
-PHASE_COLORS = {
-    "menstrual": {"bg": "#34131d", "text": "#f3bfd0", "border": "#4e2230", "dot": "#df6b8b"},
-    "follicular": {"bg": "#13261b", "text": "#bfe7ca", "border": "#254232", "dot": "#63b77c"},
-    "ovulatory": {"bg": "#301725", "text": "#f0c0dc", "border": "#492538", "dot": "#d989c5"},
-    "luteal": {"bg": "#251736", "text": "#d7c3ff", "border": "#3b2951", "dot": "#9677e7"},
-    "neutral": {"bg": "#221a19", "text": "#ece0d4", "border": "#332623", "dot": "#b8a59a"},
+PHASE_STYLES = {
+    "menstrual": {"bg": "#35151f", "text": "#f2bfd1"},
+    "follicular": {"bg": "#14241a", "text": "#bfe4ca"},
+    "ovulatory": {"bg": "#341a2b", "text": "#efbfdc"},
+    "luteal": {"bg": "#241934", "text": "#d8c5ff"},
+    "neutral": {"bg": "#221b1f", "text": "#eadde2"},
 }
 
-# =============================
-# LOAD DATA
-# =============================
+# -----------------------------
+# Data
+# -----------------------------
 @st.cache_data
 def load_data():
     df = pd.read_csv("explore_foods.csv")
@@ -36,18 +35,18 @@ def load_data():
 
 df = load_data()
 
-# =============================
-# SESSION STATE
-# =============================
+# -----------------------------
+# Session
+# -----------------------------
 if "selected_food_id" not in st.session_state:
     st.session_state.selected_food_id = None
 
 if "phase_filter" not in st.session_state:
     st.session_state.phase_filter = "All Phases"
 
-# =============================
-# HELPERS
-# =============================
+# -----------------------------
+# Helpers
+# -----------------------------
 def split_csv_text(text):
     if not text:
         return []
@@ -73,11 +72,40 @@ def phase_class(name):
 
 def phase_dots(text):
     phases = split_csv_text(text)
-    return [PHASE_COLORS[phase_class(p)]["dot"] for p in phases[:3]]
+    colors = []
+    for p in phases[:3]:
+        c = phase_class(p)
+        if c == "menstrual":
+            colors.append("#df6f93")
+        elif c == "follicular":
+            colors.append("#76bc8e")
+        elif c == "ovulatory":
+            colors.append("#e094c6")
+        elif c == "luteal":
+            colors.append("#9f84ea")
+    return colors
 
-# =============================
+def render_phase_tag(label):
+    cls = phase_class(label)
+    style = PHASE_STYLES.get(cls, PHASE_STYLES["neutral"])
+    st.markdown(
+        f"""
+        <span style="
+            display:inline-block;
+            padding:7px 13px;
+            margin:0 8px 8px 0;
+            border-radius:999px;
+            background:{style['bg']};
+            color:{style['text']};
+            font-size:0.92rem;
+        ">{label}</span>
+        """,
+        unsafe_allow_html=True
+    )
+
+# -----------------------------
 # CSS
-# =============================
+# -----------------------------
 st.markdown(f"""
 <style>
 html, body, [class*="css"] {{
@@ -91,322 +119,139 @@ html, body, [class*="css"] {{
 }}
 
 .block-container {{
-    max-width: 560px;
-    padding-top: 1.1rem !important;
+    max-width: 620px;
+    padding-top: 1.2rem !important;
     padding-bottom: 3rem !important;
 }}
 
-h1,h2,h3,h4,p,div,span,label {{
+h1, h2, h3, h4, h5, p, div, span, label {{
     color: {TEXT};
 }}
 
-.top-title {{
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 18px;
+div[data-testid="stTextInputRootElement"] input {{
+    background: {CARD} !important;
+    color: {TEXT} !important;
+    border: 1px solid {BORDER} !important;
+    border-radius: 18px !important;
 }}
 
-.back-arrow {{
-    font-size: 1.7rem;
-    line-height: 1;
+div[data-testid="stTextInputRootElement"] input::placeholder {{
+    color: {MUTED} !important;
 }}
 
-.screen-title {{
-    font-size: 2.2rem;
+div[data-testid="stButton"] > button {{
+    border-radius: 16px;
+}}
+
+.explore-title {{
+    font-size: 2.3rem;
     font-weight: 600;
-    line-height: 1;
+    margin-bottom: 1rem;
 }}
 
 .segment-wrap {{
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    margin-bottom: 14px;
+    gap: 10px;
+    margin-bottom: 1rem;
 }}
 
-.segment-active {{
+.segment-on {{
     background: {ACCENT};
-    color: #1b110d;
+    color: #1d1117;
     border-radius: 18px;
-    padding: 14px 18px;
-    text-align: center;
-    font-size: 1.08rem;
-    font-weight: 600;
-}}
-
-.segment-inactive {{
-    background: {TAB_OFF};
-    color: #8d7c75;
-    border-radius: 18px;
-    padding: 14px 18px;
-    text-align: center;
-    font-size: 1.08rem;
-    font-weight: 600;
-}}
-
-div[data-testid="stTextInputRootElement"] input {{
-    background: {SEARCH_BG} !important;
-    color: {TEXT} !important;
-    border: 1px solid #2f2320 !important;
-    border-radius: 16px !important;
-}}
-
-div[data-testid="stTextInputRootElement"] input::placeholder {{
-    color: #8e7e77 !important;
-}}
-
-.phase-visual-row {{
-    display: flex;
-    gap: 8px;
-    overflow-x: auto;
-    margin-top: 6px;
-    margin-bottom: 12px;
-    padding-bottom: 4px;
-    scrollbar-width: none;
-}}
-.phase-visual-row::-webkit-scrollbar {{
-    display: none;
-}}
-
-.phase-chip {{
-    white-space: nowrap;
-    border-radius: 999px;
-    padding: 8px 14px;
-    font-size: 0.94rem;
-    border: 1px solid #332623;
-    background: #1a1413;
-    color: {TEXT};
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-}}
-
-.phase-chip.all {{
-    background: {ACCENT};
-    color: #1b110d;
-    border-color: {ACCENT};
-}}
-
-.phase-chip.myphase {{
-    background: #171717;
-    color: #f2de84;
-    border-color: #292929;
-}}
-
-.phase-filter-buttons {{
-    margin-bottom: 14px;
-}}
-
-div[data-testid="stHorizontalBlock"] > div {{
-    padding-left: 0.12rem !important;
-    padding-right: 0.12rem !important;
-}}
-
-div[data-testid="stButton"] > button {{
-    width: 100%;
-    border-radius: 999px;
-    background: #1a1413;
-    color: {TEXT};
-    border: 1px solid #332623;
-    padding: 0.45rem 0.5rem;
-    font-size: 0.78rem;
-}}
-
-div[data-testid="stButton"] > button:hover {{
-    border-color: {ACCENT};
-    color: {TEXT};
-}}
-
-.food-shell {{
-    background: {CARD};
-    border: 1px solid {CARD_BORDER};
-    border-radius: 20px;
     padding: 14px 16px;
-    margin-bottom: 8px;
+    text-align: center;
+    font-size: 1.08rem;
+    font-weight: 600;
 }}
 
-.food-row {{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}}
-
-.food-left {{
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}}
-
-.food-emoji {{
-    font-size: 1.9rem;
-    line-height: 1;
-}}
-
-.food-name {{
-    font-size: 1.55rem;
-    line-height: 1.05;
-    font-weight: 500;
-    margin-bottom: 4px;
-}}
-
-.food-group {{
-    font-size: 0.95rem;
+.segment-off {{
+    background: {CARD};
     color: {MUTED};
+    border-radius: 18px;
+    padding: 14px 16px;
+    text-align: center;
+    font-size: 1.08rem;
+    font-weight: 600;
 }}
 
-.dot-row {{
-    display: flex;
-    gap: 6px;
-    align-items: center;
+.card {{
+    background: {CARD};
+    border: 1px solid {BORDER};
+    border-radius: 22px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
 }}
 
-.dot {{
-    width: 10px;
-    height: 10px;
-    border-radius: 999px;
-    display: inline-block;
+.card-name {{
+    font-size: 1.45rem;
+    font-weight: 600;
+    line-height: 1.1;
 }}
 
-.open-row {{
-    margin-top: 10px;
-}}
-
-.open-row div[data-testid="stButton"] > button {{
-    border-radius: 14px !important;
-    background: #181110 !important;
-    border: 1px solid #2d201d !important;
-    color: #eadfd4 !important;
-    font-size: 0.93rem !important;
-    padding: 0.55rem 0.8rem !important;
-}}
-
-.back-link {{
-    color: {ACCENT};
-    margin: 4px 0 12px 0;
-    font-size: 1rem;
+.card-group {{
+    color: {MUTED};
+    font-size: 0.96rem;
+    margin-top: 4px;
 }}
 
 .detail-card {{
     background: {CARD};
-    border: 1px solid {CARD_BORDER};
-    border-radius: 24px;
+    border: 1px solid {BORDER};
+    border-radius: 26px;
     padding: 24px;
-    margin-top: 4px;
+    margin-top: 10px;
 }}
 
-.detail-emoji {{
-    font-size: 2.6rem;
-    line-height: 1;
-}}
-
-.detail-title {{
-    font-size: 2.7rem;
-    line-height: 1;
-    margin-top: 12px;
-    font-weight: 500;
-}}
-
-.detail-group {{
-    margin-top: 8px;
-    color: {MUTED};
-    font-size: 1.02rem;
-}}
-
-.section-label {{
-    margin-top: 24px;
-    margin-bottom: 8px;
-    font-size: 1.24rem;
+.label {{
+    font-size: 1.15rem;
     font-weight: 600;
-}}
-
-.detail-text {{
-    color: #d8ccc1;
-    font-size: 1.05rem;
-    line-height: 1.75;
+    margin-top: 1.2rem;
+    margin-bottom: 0.5rem;
 }}
 
 .tag {{
     display: inline-block;
-    background: #221a18;
-    color: #ece1d5;
-    border-radius: 999px;
+    background: #221b1f;
+    color: {TEXT};
     padding: 7px 13px;
-    margin-right: 8px;
-    margin-bottom: 8px;
-    font-size: 0.92rem;
-}}
-
-.phase-tag {{
-    display: inline-block;
     border-radius: 999px;
-    padding: 7px 13px;
-    margin-right: 8px;
-    margin-bottom: 8px;
+    margin: 0 8px 8px 0;
     font-size: 0.92rem;
-    border: 1px solid transparent;
 }}
 </style>
 """, unsafe_allow_html=True)
 
-# dynamic phase tag classes
-extra_css = ""
-for key, vals in PHASE_COLORS.items():
-    extra_css += f"""
-    .phase-tag.{key} {{
-        background: {vals['bg']};
-        color: {vals['text']};
-        border-color: {vals['border']};
-    }}
-    .phase-chip-{key} {{
-        background: {vals['bg']};
-        color: {vals['text']};
-        border: 1px solid {vals['border']};
-    }}
-    """
-st.markdown(f"<style>{extra_css}</style>", unsafe_allow_html=True)
+# -----------------------------
+# Header
+# -----------------------------
+st.markdown('<div class="explore-title">← Explore</div>', unsafe_allow_html=True)
 
-# =============================
-# HEADER
-# =============================
-st.markdown("""
-<div class="top-title">
-    <div class="back-arrow">←</div>
-    <div class="screen-title">Explore</div>
-</div>
-""", unsafe_allow_html=True)
-
-st.markdown("""
+st.markdown(f"""
 <div class="segment-wrap">
-    <div class="segment-active">🍽 Food</div>
-    <div class="segment-inactive">🏋 Workouts</div>
+    <div class="segment-on">Food</div>
+    <div class="segment-off">Workouts</div>
 </div>
 """, unsafe_allow_html=True)
 
 search = st.text_input("", placeholder="Search foods...")
 
-active_all = "all" if st.session_state.phase_filter == "All Phases" else ""
-st.markdown(f"""
-<div class="phase-visual-row">
-    <span class="phase-chip {active_all}">All Phases</span>
-    <span class="phase-chip myphase">✨ My Phase</span>
-    <span class="phase-chip phase-chip-menstrual">🌙 Menstrual</span>
-    <span class="phase-chip phase-chip-follicular">🌱 Follicular</span>
-    <span class="phase-chip phase-chip-ovulatory">🌸 Ovulation</span>
-    <span class="phase-chip phase-chip-luteal">🔥 Luteal</span>
-</div>
-""", unsafe_allow_html=True)
-
+# -----------------------------
+# Phase filters
+# -----------------------------
 phase_options = ["All Phases", "Menstrual", "Follicular", "Ovulatory", "Luteal"]
-cols = st.columns(len(phase_options))
+phase_cols = st.columns(len(phase_options))
+
 for i, phase in enumerate(phase_options):
-    with cols[i]:
-        if st.button(phase, key=f"phase_{phase}"):
+    with phase_cols[i]:
+        button_type = "primary" if st.session_state.phase_filter == phase else "secondary"
+        if st.button(phase, key=f"phase_{phase}", use_container_width=True, type=button_type):
             st.session_state.phase_filter = phase
 
-# =============================
-# FILTER
-# =============================
+# -----------------------------
+# Filter data
+# -----------------------------
 filtered = df.copy()
 
 if search:
@@ -417,41 +262,42 @@ if st.session_state.phase_filter != "All Phases":
         filtered["best_during_phases"].str.contains(st.session_state.phase_filter, case=False, na=False)
     ]
 
-# =============================
-# LIST VIEW
-# =============================
+# -----------------------------
+# List view
+# -----------------------------
 if st.session_state.selected_food_id is None:
     for _, row in filtered.iterrows():
-        dots_html = "".join(
-            [f"<span class='dot' style='background:{c}'></span>" for c in phase_dots(row.get("best_during_phases", ""))]
+        dots = phase_dots(row.get("best_during_phases", ""))
+        dots_html = "".join([
+            f"<span style='display:inline-block;width:10px;height:10px;border-radius:999px;background:{c};margin-left:6px;'></span>"
+            for c in dots
+        ])
+
+        st.markdown(
+            f"""
+            <div class="card">
+                <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;">
+                    <div style="display:flex;align-items:center;gap:12px;">
+                        <div style="font-size:1.9rem;">{row.get('emoji','🍽️')}</div>
+                        <div>
+                            <div class="card-name">{row['food_name']}</div>
+                            <div class="card-group">{get_group(row)}</div>
+                        </div>
+                    </div>
+                    <div>{dots_html}</div>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True
         )
 
-        st.markdown(f"""
-        <div class="food-shell">
-            <div class="food-row">
-                <div class="food-left">
-                    <div class="food-emoji">{row.get('emoji', '🍽️')}</div>
-                    <div>
-                        <div class="food-name">{row['food_name']}</div>
-                        <div class="food-group">{get_group(row)}</div>
-                    </div>
-                </div>
-                <div class="dot-row">{dots_html}</div>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
+        if st.button(f"Open {row['food_name']}", key=f"open_{row['food_id']}", use_container_width=True):
+            st.session_state.selected_food_id = row["food_id"]
+            st.rerun()
 
-        col1, col2 = st.columns([5, 1])
-        with col1:
-            if st.button(f"Open {row['food_name']}", key=f"open_{row['food_id']}"):
-                st.session_state.selected_food_id = row["food_id"]
-                st.rerun()
-        with col2:
-            st.write("")
-
-# =============================
-# DETAIL VIEW
-# =============================
+# -----------------------------
+# Detail view
+# -----------------------------
 else:
     selected = df[df["food_id"] == st.session_state.selected_food_id].iloc[0]
 
@@ -460,23 +306,30 @@ else:
         st.rerun()
 
     st.markdown('<div class="detail-card">', unsafe_allow_html=True)
-    st.markdown(f"<div class='detail-emoji'>{selected.get('emoji', '🍽️')}</div>", unsafe_allow_html=True)
-    st.markdown(f"<div class='detail-title'>{selected['food_name']}</div>", unsafe_allow_html=True)
-    st.markdown(f"<div class='detail-group'>{get_group(selected)}</div>", unsafe_allow_html=True)
+    st.markdown(f"<div style='font-size:2.8rem'>{selected.get('emoji','🍽️')}</div>", unsafe_allow_html=True)
+    st.markdown(f"<div style='font-size:2.4rem;font-weight:600;margin-top:10px'>{selected['food_name']}</div>", unsafe_allow_html=True)
+    st.markdown(f"<div style='color:{MUTED};margin-top:6px'>{get_group(selected)}</div>", unsafe_allow_html=True)
 
-    st.markdown("<div class='section-label'>Benefits</div>", unsafe_allow_html=True)
-    st.markdown(f"<div class='detail-text'>{selected.get('description', '')}</div>", unsafe_allow_html=True)
-
-    st.markdown("<div class='section-label'>Key Nutrients</div>", unsafe_allow_html=True)
-    nutrient_html = "".join(
-        [f"<span class='tag'>{n}</span>" for n in split_csv_text(selected.get("key_nutrients", ""))]
+    st.markdown('<div class="label">Benefits</div>', unsafe_allow_html=True)
+    st.markdown(
+        f"<div style='color:#d8cad0;line-height:1.75;font-size:1.03rem'>{selected.get('description','')}</div>",
+        unsafe_allow_html=True
     )
-    st.markdown(nutrient_html or "<span class='tag'>No data</span>", unsafe_allow_html=True)
 
-    st.markdown("<div class='section-label'>Best During</div>", unsafe_allow_html=True)
-    phase_html = "".join(
-        [f"<span class='phase-tag {phase_class(p)}'>{p}</span>" for p in split_csv_text(selected.get("best_during_phases", ""))]
-    )
-    st.markdown(phase_html or "<span class='tag'>No data</span>", unsafe_allow_html=True)
+    st.markdown('<div class="label">Key Nutrients</div>', unsafe_allow_html=True)
+    nutrients = split_csv_text(selected.get("key_nutrients", ""))
+    if nutrients:
+        for n in nutrients:
+            st.markdown(f"<span class='tag'>{n}</span>", unsafe_allow_html=True)
+    else:
+        st.markdown("<span class='tag'>No data</span>", unsafe_allow_html=True)
+
+    st.markdown('<div class="label">Best During</div>', unsafe_allow_html=True)
+    phases = split_csv_text(selected.get("best_during_phases", ""))
+    if phases:
+        for p in phases:
+            render_phase_tag(p)
+    else:
+        st.markdown("<span class='tag'>No data</span>", unsafe_allow_html=True)
 
     st.markdown("</div>", unsafe_allow_html=True)
