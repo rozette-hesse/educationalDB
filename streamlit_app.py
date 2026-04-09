@@ -10,7 +10,7 @@ st.set_page_config(page_title="InBalance Explore", layout="centered")
 BG = "#1c1719"
 CARD = "#241d20"
 BORDER = "#3b3136"
-TEXT = "#f5ecef"
+TEXT = "#000080"
 MUTED = "#aa98a0"
 ACCENT = "#b989a4"
 ACCENT_2 = "#7da28c"
