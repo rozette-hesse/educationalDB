@@ -1,0 +1,57 @@
+food_id,food_name,emoji,description,key_nutrients,best_during_phases,food_group,food_subgroup
+FD001,banana,🍌,,potassium,"luteal, menstrual",fruit,tropical_fruit
+FD002,orange,🍽️,,vitamin_c,menstrual,fruit,citrus
+FD003,strawberry,🍽️,,vitamin_c,"follicular, ovulatory",fruit,berries
+FD004,blueberry,🍽️,,vitamin_c,ovulatory,fruit,berries
+FD005,kiwi,🍽️,,vitamin_c,,fruit,tropical_fruit
+FD006,apple,🍽️,,,,fruit,pome_fruit
+FD007,dates,🍽️,,potassium,,fruit,dried_fruit
+FD008,avocado,🍽️,,potassium,ovulatory,fruit,avocado_olive_other_fruit
+FD009,spinach,🥬,,"folate, iron, magnesium",menstrual,vegetable,leafy_green
+FD010,kale,🍽️,,"folate, iron, magnesium",,vegetable,leafy_green
+FD011,broccoli,🍽️,,vitamin_c,follicular,vegetable,cruciferous
+FD012,sweet_potato,🍠,,potassium,"luteal, menstrual",vegetable,root_vegetable
+FD013,carrot,🍽️,,vitamin_c,,vegetable,root_vegetable
+FD014,tomato,🍽️,,vitamin_c,ovulatory,vegetable,nightshade
+FD015,bell_pepper,🍽️,,vitamin_c,"follicular, ovulatory",vegetable,nightshade
+FD016,cucumber,🍽️,,,"follicular, ovulatory",vegetable,marrow_vegetable
+FD017,mushrooms,🍽️,,,,vegetable,mushroom
+FD018,onion,🍽️,,,,vegetable,allium
+FD019,oats,🍽️,,protein,luteal,grain,whole_grain
+FD020,brown_rice,🍽️,,protein,,grain,whole_grain
+FD021,quinoa,🍽️,,protein,follicular,grain,pseudograin
+FD022,wholegrain_bread,🍽️,,protein,,grain,grain_product
+FD023,chickpeas,🍽️,,"folate, iron, protein","follicular, luteal",legume,beans
+FD024,lentils,🫘,,"folate, iron, protein",menstrual,legume,lentils
+FD025,black_beans,🍽️,,"folate, iron, protein",,legume,beans
+FD026,peas,🍽️,,"folate, iron, protein",,legume,peas
+FD027,tofu,🍽️,,"folate, iron, protein",,legume,soy_products
+FD028,almonds,🍽️,,magnesium,luteal,nut,tree_nut
+FD029,walnuts,🍽️,,magnesium,,nut,tree_nut
+FD030,peanut_butter,🍽️,,,luteal,nut,peanut_other
+FD031,pumpkin_seeds,🍽️,,"iron, magnesium",luteal,seed,edible_seed
+FD032,chia_seeds,🍽️,,,luteal,seed,edible_seed
+FD033,flaxseeds,🍽️,,,luteal,seed,edible_seed
+FD034,tahini,🍽️,,calcium,,seed,seed_butter_other
+FD035,greek_yogurt,🥣,,"calcium, protein","follicular, menstrual, ovulatory",dairy,yogurt
+FD036,kefir,🍽️,,"calcium, protein",,dairy,fermented_dairy
+FD037,milk,🍽️,,"calcium, protein",,dairy,milk
+FD038,cottage_cheese,🍽️,,"calcium, protein",,dairy,cheese
+FD039,egg,🥚,,"protein, vitamin_b12","follicular, menstrual",egg,whole_egg
+FD040,salmon,🐟,,"protein, vitamin_d","menstrual, ovulatory",fish,oily_fish
+FD041,sardines,🍽️,,"calcium, protein",,fish,oily_fish
+FD042,cod,🍽️,,protein,,fish,white_fish
+FD043,shrimp,🍽️,,protein,,fish,shellfish_seafood
+FD044,chicken,🍽️,,protein,follicular,meat,poultry
+FD045,beef,🍽️,,"iron, protein",,meat,red_meat
+FD046,liver,🍽️,,"folate, iron, protein",menstrual,meat,organ_meat
+FD047,parsley,🍽️,,,follicular,herb,fresh_herb
+FD048,mint,🍽️,,,,herb,fresh_herb
+FD049,turmeric,🟡,,,,spice,ground_spice
+FD050,cinnamon,🍽️,,,,spice,ground_spice
+FD051,green_tea,🍽️,,water,ovulatory,beverage,tea
+FD052,broth,🍽️,,sodium,menstrual,beverage,broth
+FD053,orange_juice,🍽️,,vitamin_c,,beverage,juice
+FD054,berry_smoothie,🍽️,,vitamin_c,ovulatory,beverage,smoothie
+FD055,dark_chocolate,🍫,,magnesium,luteal,treat,chocolate
+FD056,olive_oil,🍽️,,,,pantry_other,oil
