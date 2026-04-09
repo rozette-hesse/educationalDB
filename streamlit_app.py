@@ -7,20 +7,20 @@ st.set_page_config(page_title="InBalance Explore", layout="centered")
 # Theme
 # -----------------------------
 
-BG = "#1e1918"
-CARD = "#27201f"
-BORDER = "#3f3431"
+BG = "#1c1719"
+CARD = "#241d20"
+BORDER = "#3b3136"
 TEXT = "#f5ecef"
-MUTED = "#a8959d"
-ACCENT = "#b884a1"
-ACCENT_2 = "#7aa38b"
+MUTED = "#aa98a0"
+ACCENT = "#b989a4"
+ACCENT_2 = "#7da28c"
 
 PHASE_STYLES = {
-    "menstrual": {"bg": "#35151f", "text": "#f2bfd1"},
-    "follicular": {"bg": "#14241a", "text": "#bfe4ca"},
-    "ovulatory": {"bg": "#341a2b", "text": "#efbfdc"},
-    "luteal": {"bg": "#241934", "text": "#d8c5ff"},
-    "neutral": {"bg": "#221b1f", "text": "#eadde2"},
+    "menstrual": {"bg": "#40202a", "text": "#f0c3d2"},
+    "follicular": {"bg": "#1d2d23", "text": "#c4e3ce"},
+    "ovulatory": {"bg": "#442637", "text": "#efc6dc"},
+    "luteal": {"bg": "#2f2442", "text": "#d8c8fb"},
+    "neutral": {"bg": "#2a2326", "text": "#eadde2"},
 }
 
 # -----------------------------
