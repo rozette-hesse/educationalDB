@@ -6,9 +6,10 @@ st.set_page_config(page_title="InBalance Explore", layout="centered")
 # -----------------------------
 # Theme
 # -----------------------------
-BG = "#0b090b"
-CARD = "#151113"
-BORDER = "#2a2226"
+
+BG = "#181215"
+CARD = "#22191e"
+BORDER = "#3b2d35"
 TEXT = "#f5ecef"
 MUTED = "#a8959d"
 ACCENT = "#b884a1"   # mauve-pink
