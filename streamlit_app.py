@@ -13,6 +13,7 @@ BORDER = "#342733"
 TEXT = "#f5ecef"
 MUTED = "#a8959d"
 ACCENT = "#b884a1"
+ACCENT_2 = "#7aa38b"
 
 PHASE_STYLES = {
     "menstrual": {"bg": "#35151f", "text": "#f2bfd1"},
